@@ -12,18 +12,21 @@
 $kid = new Kid();
 $kid->setName('kazuya');
 $kid->setSex('boy');
+$kid->setAge(2);
 
 echo $kid->showName();
 
 class Kid{
   private $name;
   private $sex;
+  private $age;
 
   // コンストラクタ
   function __construct(){
     // 初期値の設定
     $this->name = 'Seed';
     $this->sex = 'boy';
+    $this->age = 10;
   }
 
   public function getName(){
@@ -42,14 +45,33 @@ class Kid{
      $this->sex = $seibetsu;
    }
 
+   public function getAge(){
+    return $this->age;
+   }
+
+   public function setAge($nenrei){
+    $this->age = $nenrei;
+   }
+
   // 性別によって名前の語尾を判定するメソッド
   public function showName(){
+    $suffix = '';
     if ($this->sex == 'boy') {
-      return $this->name . 'くん';
-    } else if($this->sex == 'girl') {
-      return $this->name . 'ちゃん';
+      if ($this->age >= 20) {
+        $suffix ='どん';
+        } else{
+          $suffix = 'そん';
+        }
+    } elseif($this->sex == 'girl') {
+      if ($this->age >= 20) {
+        $suffix='さん';
+      } else {
+        $suffix = 'ちゃん';
+      }
+      
     } else {
       return $this->name .'様';
     }
+    return $this->name . $suffix;
   }
 }
